@@ -1,0 +1,175 @@
+<html>
+  <head>
+  <style type="text/css">
+	.sfondo {background-color:rgb(83, 154, 251);} 
+
+	@import url(https://fonts.googleapis.com/css?family=Pacifico);
+	@import url('https://fonts.googleapis.com/css?family=Anton');
+
+	body {
+  		background-color:#607D8B;
+	}
+
+	.container{
+  		margin:auto;
+  		background-color:#E0F2F1;
+  		width:1000px;
+  		padding:5px;
+  		border-radius:10px;
+  		box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.75);
+	}
+
+	h1, h2{
+  		text-align:center;
+	}
+
+	h3 {
+  		color:rgba(100, 50, 255, .8);
+  		font-family: Helvetica;
+  		color:#212121;
+  		text-align:center
+	}
+
+	.rainbow {
+  
+   /* Font options */
+  		font-family: 'Pacifico', cursive;
+  		text-shadow: 2px 2px 4px #000000;
+  		font-size:60px;
+  
+   /* Chrome, Safari, Opera */
+  		-webkit-animation: rainbow 5s infinite; 
+  
+  /* Internet Explorer */
+  		-ms-animation: rainbow 5s infinite;
+  
+  /* Standar Syntax */
+  		animation: rainbow 5s infinite; 
+	}
+
+/* Chrome, Safari, Opera */
+	@-webkit-keyframes rainbow{
+  		0%{color: orange;}	
+  		10%{color: purple;}	
+		20%{color: red;}
+  		30%{color: CadetBlue;}
+		40%{color: yellow;}
+  		50%{color: coral;}
+		60%{color: green;}
+  		70%{color: cyan;}
+  		80%{color: DeepPink;}
+  		90%{color: DodgerBlue;}
+		100%{color: orange;}
+	}
+
+/* Internet Explorer */
+	@-ms-keyframes rainbow{
+   		0%{color: orange;}	
+  		10%{color: purple;}	
+		20%{color: red;}
+  		30%{color: CadetBlue;}
+		40%{color: yellow;}
+  		50%{color: coral;}
+		60%{color: green;}
+  		70%{color: cyan;}
+  		80%{color: DeepPink;}
+  		90%{color: DodgerBlue;}
+		100%{color: orange;}
+	}
+
+/* Standar Syntax */
+	@keyframes rainbow{
+    	0%{color: orange;}	
+  		10%{color: purple;}	
+		20%{color: red;}
+  		30%{color: CadetBlue;}
+		40%{color: yellow;}
+  		50%{color: coral;}
+		60%{color: green;}
+  		70%{color: cyan;}
+  		80%{color: DeepPink;}
+  		90%{color: DodgerBlue;}
+		100%{color: orange;}
+	}
+	#tStyle {
+  		font-family: Arial, Helvetica, sans-serif;
+  		border-collapse: collapse;
+  		width: 100%;
+  		border-radius:10px;
+  		border: 1px solid #ddd;
+	}
+
+	#tStyle td, #tStyle th {
+  		border: 1px solid #ddd;
+  		border-collapse: collapse;
+  		padding: 8px;
+	}
+
+	#tStyle tr:nth-child(even){background-color: #f2f2f2;}
+
+	#tStyle tr:hover {background-color: #ddd;}
+
+	#tStyle th {
+  		padding-top: 12px;
+  		padding-bottom: 12px;
+  		text-align: left;
+  		background-color:rgb(83, 154, 251);
+  		color: white;
+	}	
+
+	.loader {
+  		margin:auto;
+  		border: 16px solid #E0F2F1; 
+  		border-top: 16px solid #E0F2F1; 
+  		border-radius: 50%;
+  		width: 120px;
+  		height: 120px;
+  		animation: spin 2s linear infinite;
+	}
+
+	@keyframes spin {
+  		0% { transform: rotate(0deg); }
+  		100% { transform: rotate(360deg); }
+	}
+
+	</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        var refresh_id = setInterval(function() {
+            $.get(
+              "{{ url_for('thread_status') }}",
+              function(data) {
+                console.log(data);
+                if (data.status == 'finished') {
+                  window.location.replace("{{ url_for('result') }}");
+                }
+              }
+            )}
+          , 1000);
+      });
+    </script>
+
+  </head>
+  <body class="sfondo">
+	<div class="container">
+		<h2 class="rainbow">Medusa2</h2>
+		<div class="loader"><img src="../static/medusa2.png" width="150" height="150"alt="" border="0"/></div>
+		<br/>
+		<br/>	
+		<h3>Running...</h3>  
+    	<table id="tStyle">
+			<tr><th> Parameter</th><th> Value</th></tr>
+			<tr><td>Name of the target file </td><td>{{ target_filename }}</td></tr>
+			<tr><td>Names of references files </td><td>{{ references_filename}}</td></tr>
+			<tr><td>Name of the output folder</td><td>{{ output_folder }}</td></tr>
+			<tr><td>Number of runs</td><td>{{ run }}</td></tr>
+			<tr><td>Number of processes</td><td>{{ process }}</td></tr>
+			<tr><td>Presence of skipmap</td><td>Default, used if running > 1</td></tr>
+			<tr><td>Use of Minimap2</td><td>{{ minimap2 }}</td></tr>
+			<tr><td>Random graph</td><td>{{ random }}</td></tr>
+  			<tr><td>Weight graph</td><td>{{ weight }}</td></tr>
+    	</table>
+	</div> 
+  </body>
+</html>

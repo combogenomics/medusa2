@@ -1,0 +1,284 @@
+<html>
+<head>
+<style type="text/css">
+.sfondo {background-color:rgb(83, 154, 251);} 
+.button {
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  /*font-family: 'Pacifico', cursive;*/
+  font-family: Arial;	
+}
+.buttoninsert {
+  border-radius: 8px;
+  color: black;
+  padding: 1px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  /*font-family: 'Pacifico', cursive;*/
+  font-family: Arial;	
+
+}
+
+.buttonexecute {
+  border-radius: 8px;
+  background-color: white; /* white */
+  color: black;
+  font-size: 16px;
+  /*font-family: 'Pacifico', cursive;*/
+  font-family: Arial;	
+  padding: 15px 32px;
+  transition-duration: 0.4s;
+}
+
+.buttonexecute:hover {
+  border-radius: 8px;
+  background-color: #008CBA; /* blue */
+  color: white;
+  font-size: 16px;
+  /*font-family: 'Pacifico', cursive;*/
+  font-family: Arial;	
+}
+
+.messages{
+  color: #510405;
+  font-size: x-large;
+  -webkit-box-flex:0;
+  -ms-flex:0 0 50%;
+  flex:0 0 50%;
+  max-width:70%;
+  
+}
+
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+@import url('https://fonts.googleapis.com/css?family=Anton');
+
+body {
+  background-color:#607D8B;
+}
+
+.container{
+  margin:auto;
+  background-color:#E0F2F1;
+  width:1000px;
+  padding:5px;
+  border-radius:10px;
+  box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.75);
+}
+
+h1, h2{
+  text-align:center;
+}
+
+h3 {
+  color:rgba(100, 50, 255, .8);
+  /*font-family: 'Pacifico', cursive;*/
+  font-family: Arial;	
+  color:#212121;
+}
+
+
+[data-toggle]:hover {
+  font-weight: bolder;
+}
+
+.rainbow {
+  
+   /* Font options */
+  font-family: 'Pacifico', cursive;
+  text-shadow: 2px 2px 4px #000000;
+  font-size:60px;
+  
+   /* Chrome, Safari, Opera */
+  -webkit-animation: rainbow 5s infinite; 
+  
+  /* Internet Explorer */
+  -ms-animation: rainbow 5s infinite;
+  
+  /* Standar Syntax */
+  animation: rainbow 5s infinite; 
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes rainbow{
+  0%{color: orange;}	
+  10%{color: purple;}	
+	20%{color: red;}
+  30%{color: CadetBlue;}
+	40%{color: yellow;}
+  50%{color: coral;}
+	60%{color: green;}
+  70%{color: cyan;}
+  80%{color: DeepPink;}
+  90%{color: DodgerBlue;}
+	100%{color: orange;}
+}
+
+/* Internet Explorer */
+@-ms-keyframes rainbow{
+   0%{color: orange;}	
+  10%{color: purple;}	
+	20%{color: red;}
+  30%{color: CadetBlue;}
+	40%{color: yellow;}
+  50%{color: coral;}
+	60%{color: green;}
+  70%{color: cyan;}
+  80%{color: DeepPink;}
+  90%{color: DodgerBlue;}
+	100%{color: orange;}
+}
+
+/* Standar Syntax */
+@keyframes rainbow{
+    0%{color: orange;}	
+  10%{color: purple;}	
+	20%{color: red;}
+  30%{color: CadetBlue;}
+	40%{color: yellow;}
+  50%{color: coral;}
+	60%{color: green;}
+  70%{color: cyan;}
+  80%{color: DeepPink;}
+  90%{color: DodgerBlue;}
+	100%{color: orange;}
+}
+
+</style>
+
+
+<script>
+
+function validateForm() {
+  var x = document.medusa2.run.value;
+  var y = document.medusa2.skipmap.value;
+  var z = document.medusa2.minimap2.value;
+  alert("run="+x);
+  alert("skipmap="+y);
+  alert("minimap2="+z);
+  return false;
+  if (x == 1 && y =="on") 
+  {
+    alert("Skipmap not available with 1 run");
+    return false;
+  }
+  
+}
+
+
+
+</script>
+</head>
+<body class="sfondo">
+<div class="container">
+  <h2 class="rainbow">Medusa2</h2>
+  <div class="messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+      
+      <strong>{{ category }}</strong> {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
+  <form name="medusa2" method="post" action="/" enctype="multipart/form-data">
+		<h3><table style="width:1000px;height: 40%;">
+	 		<tbody>
+	  			<tr>
+					<td style="width:170px"><label for="target">Select a target file:</label> </td>
+					<td style="width:170px"><input type="file" class="button" id="target" name="target" required> </td> 
+					<td rowspan="8" align="center">	
+	       <img src="../static/medusa2.png" width="320" height="320"alt="" border="0"/>  
+	    </td>
+				</tr> 
+				<tr>	
+					<td><label for="references">Select references files:</label> </td>
+					<td style="width:170px"><input type="file" class="button" id="target" name="references" multiple="multiple" required> </td>
+				</tr> 
+				<tr>
+					<td><label for="folder">Output Folder:</label></td>
+					<td style="width:170px"><input type="text" class="buttoninsert" id="outputfolder" name="outputfolder" required> </td>
+				</tr> 
+				<tr>	
+					<td><label for="run">Number of run:</label></td>
+					<td style="width:170px"><input type="number" class="buttoninsert" id="run" name="run" min="1" max="10"required> </td>
+				</tr> 
+				<tr>	
+					<td><label for="run">Number of process:</label></td>
+					<td style="width:170px"><input type="number" class="buttoninsert" id="process" name="process" min="1" max="12" required> </td>
+				</tr> 
+				<tr>	
+					<td><label for="skipmap">Skip Mapping: </label> </td>
+					<td><label for="skipmap">Default, used if running > 1 </label> </td>
+			<!--		<td style="width:170px"><input type="checkbox" class="button" id="skipmap" name="skipmap"> </td>-->
+				</tr> 
+        <!--
+				<tr>	
+					<td><label for="skipmap">Use Minimap2:</label> </td>
+					<td style="width:170px"><input type="checkbox" class="button" id="minimap2" name="minimap2"> </td>
+				</tr> 
+        -->
+        <br> <br>
+        <!---->
+        <tr>
+          <td>
+            <label for ="aligning_algorithm">aligning algorithm:</label></td>
+           
+            <td style="width:170px">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="aligning_algorithm" id="exampleRadios1"
+                value="option1" checked>
+              <label class="form-check-label" for="exampleRadios1" data-toggle="tooltip" title="Description for Mummer3">
+                Mummer3
+              </label>
+            </div>
+           
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="aligning_algorithm" id="exampleRadios2"
+                value="option2" >
+              <label class="form-check-label" for="exampleRadios2" data-toggle="tooltip" title="Description for Minmap">
+                Minimap2
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <label>graph path choice:</label> </td>
+          <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox"  name="graph_path_rd" value="-r" id="defaultCheck1" checked>
+            <label class="form-check-label" for="defaultCheck1" data-toggle="tooltip" title="allow for random choice when best edges have the same score. This might lead to variable results!">
+              Random
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="graph_path_wh" value="-w" id="defaultCheck2">
+            <label class="form-check-label" for="defaultCheck2" data-toggle="tooltip" title="allow for sequence similarity based weighting scheme. May lead to better results">
+              Weight
+            </label>
+          </div>
+          </td>
+        </tr>
+				<tr> 
+					<td></td>	
+					<td align="center"><input type="submit" class="buttonexecute"  value="Execute" name="execute" /> </td>
+				</tr>
+			
+	  </tbody>
+	</table></h3>
+	</form>
+	</div>	
+    </body>
+  
+</html>
+
+
+
+
